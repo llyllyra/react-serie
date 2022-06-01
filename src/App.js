@@ -6,7 +6,7 @@ const App = () => {
   let [seriesData, setSeriesData] = useState([])
   useEffect(()=>{
     axios
-        .get(`https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.REACT_APP_API}&language=us-US&page=1
+        .get(`https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.REACT_APP_API}&language=en-US&page=1
         `)
         .then((res) => setSeriesData(res.data.results))
   })
