@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import Card from "./compenent/Card";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  let [seriesData, setSeriesData] = useState([])
+  useEffect(()=>{
+    axios
+        .get(` https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_API}&language=en-US&page=1
+        `)
+        .then((res) => setSeriesData(res.data.results))
+  })
+
+
+    return (
+        <div>
+              <h1>Serie du jour</h1>
+          <div className="serie-container">
+            {
+                seriesData && seriesData
+                    .map((serie)=>(
+                        <Card key={serie.id} serie={serie} />
+                    ))
+            }
+          </div>
+        </div>
+    );
+};
 
 export default App;
